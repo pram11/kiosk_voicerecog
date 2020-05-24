@@ -51,7 +51,6 @@
   <ItemGroup>
     <None Include="PropertySheet.props" />
     <None Include="packages.config" />
-    <None Include="..\..\node_modules\react-native-camera\windows\RNCamera.sln" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />

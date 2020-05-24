@@ -32,10 +32,11 @@ App::App() noexcept
 #else
     InstanceSettings().EnableDeveloperMenu(false);
 #endif
-
     PackageProviders().Append(make<ReactPackageProvider>()); // Includes all modules in this project
-    PackageProviders().Append(winrt::ReactNativeCameraCPP::ReactPackageProvider());
+    PackageProviders().Append(winrt::ReactNativeCameraCPP::ReactPackageProvider()); 
+
     REACT_REGISTER_NATIVE_MODULE_PACKAGES(); //code-gen macro from autolink
+
     InitializeComponent();
 
     // This works around a cpp/winrt bug with composable/aggregable types tracked

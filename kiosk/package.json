@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "react-native": "0.61.5",
+    "react-native-windows": "^0.61.9"
+  }
+}

@@ -13,10 +13,7 @@
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-camera": "^3.26.0",
-    "react-native-vector-icons": "^6.6.0",
-    "react-native-windows": "^0.61.0-0",
-    "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
+    "react-native-windows": "^0.61.0-0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

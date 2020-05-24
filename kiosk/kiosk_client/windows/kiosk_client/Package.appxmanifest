@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
  <Identity
-    Name="1872854d-4385-40b7-9b3f-eba3ea9e2eac"
+    Name="f050708d-acba-49e0-8901-9a235c16150c"
     Publisher="CN=an620"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="1872854d-4385-40b7-9b3f-eba3ea9e2eac" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="f050708d-acba-49e0-8901-9a235c16150c" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>kiosk_client</DisplayName>
@@ -45,5 +45,7 @@
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <DeviceCapability Name="microphone"/>
+    <DeviceCapability Name="webcam"/>
   </Capabilities>
 </Package>
