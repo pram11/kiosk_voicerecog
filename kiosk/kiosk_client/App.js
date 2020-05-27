@@ -14,71 +14,61 @@ import {
   View,
   Text,
   StatusBar,
+
 } from 'react-native';
 import { RNCamera } from 'react-native-camera';
+import {createStore} from 'redux'
+import {connect,Provider} from 'react-redux'
+import {InitialScreen, MenuScreen} from './src/screen'
+import { Reducers } from './src/reducer';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-class App extends Component{
+const store = createStore(Reducers);
+
+let ScreenMSTP = (state)=>{
+  return{
+    screen:state.display.screen
+  }
+}
+class Screen extends Component{
   render(){
-    return (
-    <>
-        <RNCamera
-            ref={ref => {
-              this.camera = ref;
-            }}
-            style={{height:"100%",width:"100%"}}
-            type={RNCamera.Constants.Type.back}
-          />
-      </>
-    );
+    switch(this.props.screen){
+      case "init":
+        return (
+          <InitialScreen/>
+        );
+      case "menu":
+        return(
+          <MenuScreen/>
+        )
+      /**
+       * 구현 후 주석 해제
+       * case "payment":
+       * return(
+       * )
+       * case "result":
+       * return(
+       * )
+       */
+
+      default:
+        return null
+    }
     
   }
-    
 };
+Screen = connect(ScreenMSTP,undefined)(Screen)
+class App extends Component{
+  render(){
+    return(
+      <Provider store = {store}>
+        <Screen/>
+      </Provider>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
+  
 });
 
 export default App;
