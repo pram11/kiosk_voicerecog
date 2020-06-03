@@ -22,6 +22,10 @@ import {connect,Provider} from 'react-redux'
 import {InitialScreen, MenuScreen} from './src/screen'
 import { Reducers } from './src/reducer';
 
+
+
+
+
 const store = createStore(Reducers);
 
 let ScreenMSTP = (state)=>{

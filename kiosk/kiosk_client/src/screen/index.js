@@ -13,27 +13,40 @@ import { RNCamera } from 'react-native-camera';
 import { goMenuScreen } from '../action';
 import {connect} from 'react-redux'
 import {MenuCard} from '../card';
-import { Nav } from '../nav';
+import { Nav,Order } from '../nav';
+import { MenuSelectedModal } from '../modal';
 
-
-const tempdata = [
-    {
-        name:"test",
-        items : [
-            {
-                name:"이름",
-                image:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/NYC-Diner-Bacon-Cheeseburger.jpg/330px-NYC-Diner-Bacon-Cheeseburger.jpg",
-                price:3000
-            },
-            {
-                name:"이름",
-                image:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/NYC-Diner-Bacon-Cheeseburger.jpg/330px-NYC-Diner-Bacon-Cheeseburger.jpg",
-                price:3000
-            }
-        ]
+const tempData = [{
+    category_name:"테스트1",
+    id:1,
+    menu:[
+      {
+        name:"테스트 메뉴",
+        picture:require('../../static/img/burger.jpg'),
+        price:3000,
+        text:"테스트중입니다. 햄버거 맛있다.",
+        set_available:true,
+        set_price:1000
+      },{
+        name:"테스트 메뉴",
+        picture:require('../../static/img/burger.jpg'),
+        price:3000,
+        text:"테스트중입니다. 햄버거 맛있다.",
+        set_available:true,
+        set_price:1000
+        
+      },{
+        name:"테스트 메뉴",
+        picture:{uri:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/NYC-Diner-Bacon-Cheeseburger.jpg/330px-NYC-Diner-Bacon-Cheeseburger.jpg"},
+        price:3000,
+        text:"테스트중입니다. 햄버거 맛있다.",
+        set_available:false,
+        set_price:0
+        
     }
-]
+    ]
 
+}]
 let InitialScreenMDTP = (dispatch)=>{
     return{
         goNext:()=>dispatch(goMenuScreen())
@@ -46,7 +59,7 @@ class InitialScreen extends Component{
                 <View style={{flex:1}}>
                     <Text>광고영역</Text>
                 </View>
-                <View style={{flex:3,position:"relative"}}>
+                <View style={{flex:5,position:"relative"}}>
                     <RNCamera
                     ref={ref => {
                         this.camera = ref;
@@ -71,28 +84,67 @@ InitialScreen = connect(undefined,InitialScreenMDTP)(InitialScreen)
 
 
 class MenuScreen extends Component{
+    constructor(props){
+        super(props)
+        this.state={
+            selectedCategory:[],
+            orderList:[],
+            showMenuSelectModal:false,
+            modalItem:null
+        }
+    }
+    componentDidMount(){
+    }
+    onPressMenuCard(data){
+        this.setState({modalItem:data,
+            showMenuSelectModal:true})
+        console.log(this.state)
+    }
+    addMenu(data){
+        let prev_orderList = this.state.orderList;
+        prev_orderList.push(data);
+        this.setState({orderList:prev_orderList});
+        console.log(this.state)
+        this.closeModal();
+    }
+    closeModal(){
+        this.setState({showMenuSelectModal:false})
+    }
     render(){
         return(
             <View style={{flex:1,flexDirection:"column"}}>
+                <MenuSelectedModal 
+                show = {this.state.showMenuSelectModal} 
+                onPressClose={()=>{this.closeModal()}}
+                data={this.state.modalItem}
+                addMenu={(data)=>{this.addMenu(data)}}
+                />
                 <View style={{flex:1,backgroundColor:"red"}}>
+                    <Text>광고영역</Text>
                 </View>                    
                 <View style={{flex:3,flexDirection:"column"}}>
                     <View style={{flexDirection:"row"}}>
-                        <Nav data={tempdata}/>
+                        <Nav data={tempData} getItemList={(data)=>{this.setState({selectedCategory:data});console.log(this.state)}}/>
                     </View>                    
                     <FlatList 
-                        style={{flex:7,backgroundColor:"blue"}}
-                        numColumns={4}
-                        data = {tempdata}
-                        renderItem={({value,key,separators})=>(
-                        <MenuCard data={tempdata}/>
+                        style={{flex:1}}
+                        numColumns={3}
+                        data = {this.state.selectedCategory}
+                        renderItem={({item,key,separators})=>(
+                        <MenuCard picture = {item.picture} name = {item.name}  onPress={()=>this.onPressMenuCard(item)}/>
+
                     )}/>
-                    <View style={{flex:1}}></View>
                 </View>
+                <View style={{flex:2,borderStyle:"solid",borderTopWidth:1,borderTopColor:"gray",backgroundColor:"lightgray"}}>
+                    <Order data = {this.state.orderList}/>    
+                    <TouchableOpacity style={{padding:8,alignItems:"center",borderWidth:2,borderRadius:8,borderStyle:'solid',borderColor:"black"}} onPress={()=>{}}>
+                        <Text style={{fontSize:30}}>결제</Text>
+                    </TouchableOpacity> 
+                </View>
+
                 
             </View>
         )
     }
 }
-
 export {InitialScreen,MenuScreen}
