@@ -1,8 +1,13 @@
 import {GOINITSCREEN,GOMENUSCREEN,PAYMENTSCREEN,ORDERRESULTSCREEN} from '../action';
 import {combineReducers} from 'redux'
+import { act } from 'react-test-renderer';
 
 const displayInitState = {
     screen:"init"
+}
+const orderDataInitState = {
+    order:[],
+    price_total:0
 }
 
 
@@ -28,7 +33,20 @@ const displayState = (state = displayInitState,action)=>{
             return state;
     }
 }
+const orderDataState = (state = orderDataInitState,action)=>{
+    switch(action.type){
+        case PAYMENTSCREEN:
+            return Object.assign({},state,{
+                order:action.order,
+                price_total:action.price_total
+            })
+        default:
+            return state;
+
+    }
+}
 
 export const Reducers = combineReducers({
-    display:displayState
+    display:displayState,
+    orderdata:orderDataState
 })
