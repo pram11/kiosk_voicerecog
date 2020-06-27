@@ -9,9 +9,10 @@ export function goInitScreen(){
     };
 }
 
-export function goMenuScreen(){
+export function goMenuScreen(id){
     return{
-        type:GOMENUSCREEN
+        type:GOMENUSCREEN,
+        order_id:id
     }
 }
 
@@ -19,9 +20,9 @@ export function paymentScreen(order){
     let price_total = 0;
     order.forEach(item => {
         if (item.is_set){
-            price_result+=(item.price_foreach+item.set_price)*item.amount
+            price_total+=(item.price+item.set_price)*item.amount
         }else{            
-            price_result+=item.price_foreach*item.amount
+            price_total+=item.price*item.amount
         }    
     });
     return{
@@ -31,8 +32,9 @@ export function paymentScreen(order){
     }
 }
 
-export function orderResultScreen(){
+export function orderResultScreen(ordernum){
     return{
-        type:ORDERRESULTSCREEN
+        type:ORDERRESULTSCREEN,
+        order_number:ordernum
     }
 }

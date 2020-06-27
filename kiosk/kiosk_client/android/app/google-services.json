@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "410859569592",
+    "firebase_url": "https://cbnu-capstone-kiosk.firebaseio.com",
+    "project_id": "cbnu-capstone-kiosk",
+    "storage_bucket": "cbnu-capstone-kiosk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410859569592:android:189b3b55eaa0e7f9210f4d",
+        "android_client_info": {
+          "package_name": "com.kiosk_client"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "410859569592-tlf0648po8mrjhotj9jcn965r65v1hka.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnqXzucsDT1xDnMoFFJQvgYvY800ToDyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "410859569592-tlf0648po8mrjhotj9jcn965r65v1hka.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

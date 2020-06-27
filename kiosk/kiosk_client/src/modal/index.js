@@ -25,9 +25,10 @@ class MenuSelectedModal extends Component{
     }
     addMenu(){
         this.props.addMenu({
+            id:this.props.data.id,
             name:this.props.data.name,
             price_foreach:this.props.data.price,
-            is_set:this.state.isSet,
+            is_set:this.props.data.set_available?this.state.isSet:false,
             amount:this.state.amount,
             set_price:this.props.data.set_price
         })
@@ -36,8 +37,8 @@ class MenuSelectedModal extends Component{
         console.log(this.props)
         if(this.props.show){
         return(
-            <View  style={{width:"100%",height:'100%',backgroundColor:'rgba(256,256,256,0)',position:"absolute",zIndex:2,flex:1,flexDirection:"column"}} >
-                <View style={{margin:64,height:Dimensions.get('window').height-128,backgroundColor:"white",flexDirection:"column",borderRadius:16}}>
+            <Modal  style={{width:"80%",height:'80%',backgroundColor:'white',position:"absolute",zIndex:2,flex:1,flexDirection:"column"}} transparent={true}>
+                <View style={{margin:64,height:Dimensions.get('window').height-128,backgroundColor:"rgba(256,256,256,256)",zIndex:2,flexDirection:"column",borderRadius:16}}>
                     <View style={{borderBottomWidth:1,borderColor:"#606060",borderStyle:"solid"}}>
                         <TouchableOpacity style={{alignItems:"flex-end",marginRight:16}} onPress={()=>this.props.onPressClose()}>
                             <Text style={{fontSize:50}}>X</Text>
@@ -88,7 +89,7 @@ class MenuSelectedModal extends Component{
                     </View>
                 </View>
 
-            </View>
+            </Modal>
         )}
         else
         return null

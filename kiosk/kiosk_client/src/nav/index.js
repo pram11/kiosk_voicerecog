@@ -25,7 +25,7 @@ class Nav extends Component{
             style={{maxHeight:68,backgroundColor:"lightgray"}}
             data = {this.props.data}
             renderItem={({item,key,separators})=>(
-                <NavItem category_name = {item.category_name} onPress={()=>this.setPress(item.menu)}/>
+                <NavItem category_name = {item.name} onPress={()=>this.setPress(item.id)}/>
             )}
             horizontal={true}
             />
@@ -50,7 +50,6 @@ class NavItem extends Component{
                 elevation: 3,
                 shadowColor:"gray",
                 backgroundColor:"white",
-                width:"100%"
             
             }} onPress={()=>this.props.onPress()}>
                 <Text style={{fontSize:32}}>{this.props.category_name}</Text>
@@ -64,9 +63,9 @@ class Order extends Component{
         let price_result = 0;
         this.props.data.forEach((item)=>{
             if (item.is_set){
-                price_result+=(item.price_foreach+item.set_price)*item.amount
+                price_result+=(item.price+item.set_price)*item.amount
             }else{            
-                price_result+=item.price_foreach*item.amount
+                price_result+=item.price*item.amount
 
 
             }
@@ -77,7 +76,7 @@ class Order extends Component{
                 style={{flex:1}}
                 data = {this.props.data}
                 numColumns={1}
-                renderItem={({item})=><OrderItem data={item}/>}
+                renderItem={({item})=><OrderItem data={item} key={item.id}/>}
                 />
                 <Text style={{borderTopWidth:1,borderColor:"black",fontSize:20}}>{price_result} 원</Text>
             </View>
@@ -93,8 +92,8 @@ class OrderItem extends Component{
                 {this.props.data.is_set?<Text>(세트) </Text>:null}
                 <Text>{this.props.data.amount}개</Text>
                 <Text>X</Text>
-                <Text>{this.props.data.price_foreach}</Text>
-                <Text>= {this.props.data.is_set?(this.props.data.price_foreach+this.props.data.set_price)*this.props.data.amount:this.props.data.price_foreach*this.props.data.amount} 원</Text>
+                <Text>{this.props.data.is_set?this.props.data.price+this.props.data.set_price:this.props.data.price}</Text>
+                <Text> = {this.props.data.is_set?(this.props.data.price+this.props.data.set_price)*this.props.data.amount:this.props.data.price*this.props.data.amount} 원</Text>
                 
             </View>
         )

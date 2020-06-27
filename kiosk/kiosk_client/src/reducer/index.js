@@ -7,7 +7,9 @@ const displayInitState = {
 }
 const orderDataInitState = {
     order:[],
-    price_total:0
+    price_total:0,
+    order_number:null,
+    order_id:null
 }
 
 
@@ -27,7 +29,7 @@ const displayState = (state = displayInitState,action)=>{
             })
         case ORDERRESULTSCREEN:
             return Object.assign({},state,{
-                screen:"result"
+                screen:"result",
             })
         default:
             return state;
@@ -40,6 +42,18 @@ const orderDataState = (state = orderDataInitState,action)=>{
                 order:action.order,
                 price_total:action.price_total
             })
+        case GOMENUSCREEN:
+            return Object.assign({},state,{
+                order_id:action.order_id
+            })
+        case ORDERRESULTSCREEN:
+            return Object.assign({},state,{
+                order_number:action.order_number
+
+            })
+        case GOINITSCREEN:
+            return orderDataInitState
+
         default:
             return state;
 

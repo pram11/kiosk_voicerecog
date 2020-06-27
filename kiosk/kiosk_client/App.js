@@ -19,7 +19,7 @@ import {
 import { RNCamera } from 'react-native-camera';
 import {createStore} from 'redux'
 import {connect,Provider} from 'react-redux'
-import {InitialScreen, MenuScreen} from './src/screen'
+import {InitialScreen, MenuScreen, PaymentScreen, ResultScreen} from './src/screen'
 import { Reducers } from './src/reducer';
 
 
@@ -44,16 +44,17 @@ class Screen extends Component{
         return(
           <MenuScreen/>
         )
-      /**
-       * 구현 후 주석 해제
-       * case "payment":
-       * return(
-       * )
-       * case "result":
-       * return(
-       * )
-       */
-
+        case "payment":
+        return(
+          <PaymentScreen/>
+        )
+       
+      
+      case "result":
+      return(
+        <ResultScreen/>
+        )
+      
       default:
         return null
     }

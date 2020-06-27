@@ -8,7 +8,7 @@
     <ProjectGuid>{597598d6-a568-44d7-bd32-0e083b7db66b}</ProjectGuid>
     <ProjectName>kiosk_client</ProjectName>
     <RootNamespace>kiosk_client</RootNamespace>
-    <DefaultLanguage>en-US</DefaultLanguage>
+    <DefaultLanguage>ko-KR</DefaultLanguage>
     <MinimumVisualStudioVersion>15.0</MinimumVisualStudioVersion>
     <AppContainerApplication>true</AppContainerApplication>
     <ApplicationType>Windows Store</ApplicationType>

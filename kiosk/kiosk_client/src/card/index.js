@@ -18,7 +18,7 @@ class MenuCard extends Component{
         console.log("MenuCard]props:",this.props)
         return(
             <TouchableOpacity style={{margin:8,padding:8,borderRadius:4,borderWidth:1,borderStyle:"solid",borderColor:"black"}} onPress={()=>this.props.onPress()}>
-                <Image style={{flex:1,aspectRatio:1}} source = {this.props.picture===undefined||this.props.picture===null?null:this.props.picture}/>
+                <Image style={{flex:1,aspectRatio:1}} source = {{uri:this.props.image}}/>
                 <Text>{this.props.name}</Text>
             </TouchableOpacity>
         )
