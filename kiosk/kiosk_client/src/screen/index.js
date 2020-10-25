@@ -10,48 +10,20 @@ import {
   FlatList,
   Image,
 } from 'react-native';
+import {VoiceRecogScreen } from './voice_recog'
 import { RNCamera } from 'react-native-camera';
-import { goMenuScreen, paymentScreen,orderResultScreen, goInitScreen } from '../action';
+import { goMenuScreen, paymentScreen,orderResultScreen, goInitScreen, goVoiceRecog } from '../action';
 import {connect} from 'react-redux'
 import {MenuCard} from '../card';
 import { Nav,Order } from '../nav';
 import { MenuSelectedModal } from '../modal';
 
 const axios = require('axios')
-const tempData = [{
-    category_name:"테스트1",
-    id:1,
-    menu:[
-      {
-        name:"테스트 메뉴",
-        picture:require('../../static/img/burger.jpg'),
-        price:3000,
-        text:"테스트중입니다. 햄버거 맛있다.",
-        set_available:true,
-        set_price:1000
-      },{
-        name:"테스트 메뉴",
-        picture:require('../../static/img/burger.jpg'),
-        price:3000,
-        text:"테스트중입니다. 햄버거 맛있다.",
-        set_available:true,
-        set_price:1000
-        
-      },{
-        name:"테스트 메뉴",
-        picture:{uri:"https://upload.wikimedia.org/wikipedia/commons/thumb/8/8f/NYC-Diner-Bacon-Cheeseburger.jpg/330px-NYC-Diner-Bacon-Cheeseburger.jpg"},
-        price:3000,
-        text:"테스트중입니다. 햄버거 맛있다.",
-        set_available:false,
-        set_price:0
-        
-    }
-    ]
 
-}]
 let InitialScreenMDTP = (dispatch)=>{
     return{
-        goNext:(id)=>dispatch(goMenuScreen(id))
+        goNext:(id)=>dispatch(goMenuScreen(id)),
+        goVoiceRecog:(id)=>dispatch(goVoiceRecog(id))
     }
 }
 class InitialScreen extends Component{
@@ -79,6 +51,12 @@ class InitialScreen extends Component{
             this.props.goNext(response.data.id)
         })
     }
+    startVoiceRecogOrder(){
+        axios({url:"http://clarin.moe:8993/order/",method:"POST"}).then((response)=>{
+            console.log(response.data.id)
+            this.props.goVoiceRecog(response.data.id)
+        })
+    }
     render(){
         return(
             <View style={{flex:1}}>
@@ -86,19 +64,25 @@ class InitialScreen extends Component{
                     <Image source = {require('../../static/img/ad.jpg')} style={{width:'100%',height:"100%"}}/>
                 </View>
                 <View style={{flex:5,position:"relative",backgroundColor:"black"}}>
+                   
                     <RNCamera
                     ref={this.camera}
                     //onCameraReady={this.onCameraReady()}
                     
-                      style={{height:"100%",width:"100%",transform:[{rotate:'270deg'}]}}
+                      style={{height:"100%",width:"100%"}}
                       type={RNCamera.Constants.Type.front}
                       
                     />
-                    <View style={{position:"absolute",bottom:0,width:"100%",padding:8}}>
-                        <TouchableOpacity style={{minHeight:64,borderRadius:8,bottom:0,zIndex:1,backgroundColor:"white",alignItems:"center",justifyContent:"center"}}
+                    <View style={{position:"absolute",bottom:0,width:"100%",padding:8,backgroundColor:"white"}}>
+                        <TouchableOpacity style={{minHeight:64,bottom:0,zIndex:1,backgroundColor:"white",alignItems:"center",justifyContent:"center",marginBottom:8,elevation:4}}
                             onPress={()=>this.startOrder()}
                         >
                             <Text style={{fontSize:58}}>주문 시작</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={{minHeight:64,bottom:0,zIndex:1,backgroundColor:"white",alignItems:"center",justifyContent:"center",elevation:4}}
+                            onPress={()=>this.startVoiceRecogOrder()}
+                        >
+                            <Text style={{fontSize:38}}>음성인식 주문 시작</Text>
                         </TouchableOpacity>
 
                     </View>
@@ -194,7 +178,7 @@ class MenuScreen extends Component{
                 data={this.state.modalItem}
                 addMenu={(data)=>{this.addMenu(data)}}
                 />
-                <View style={{flex:1,backgroundColor:"red"}}>
+                <View style={{flex:1}}>
                 <Image source = {require('../../static/img/ad.jpg')} style={{width:'100%',height:"100%"}}/>
                 </View>                    
                 <View style={{flex:3,flexDirection:"column"}}>
@@ -210,9 +194,9 @@ class MenuScreen extends Component{
 
                     )}/>
                 </View>
-                <View style={{flex:2,borderStyle:"solid",borderTopWidth:1,borderTopColor:"gray",backgroundColor:"lightgray"}}>
+                <View style={{flex:2,borderStyle:"solid",borderTopWidth:1,borderTopColor:"gray",backgroundColor:"white",padding:8}}>
                     <Order data = {this.state.orderList}/>    
-                    <TouchableOpacity style={{padding:8,alignItems:"center",borderWidth:2,borderRadius:8,borderStyle:'solid',borderColor:"black",backgroundColor:"white"}} onPress={()=>{this.props.goNext(this.state.orderList)}}>
+                    <TouchableOpacity style={{padding:8,alignItems:"center",elevation:4,borderStyle:'solid',borderColor:"black",backgroundColor:"white"}} onPress={()=>{this.props.goNext(this.state.orderList)}}>
                         <Text style={{fontSize:30}}>결제</Text>
                     </TouchableOpacity> 
                 </View>
@@ -298,4 +282,4 @@ class ResultScreen extends Component{
 }
 ResultScreen = connect(ResultScreenMSTP,ResultScreenMDTP)(ResultScreen)
 
-export {InitialScreen,MenuScreen,PaymentScreen,ResultScreen}
+export {InitialScreen,MenuScreen,PaymentScreen,ResultScreen,VoiceRecogScreen}

@@ -1,4 +1,4 @@
-import {GOINITSCREEN,GOMENUSCREEN,PAYMENTSCREEN,ORDERRESULTSCREEN} from '../action';
+import {GOINITSCREEN,GOMENUSCREEN,PAYMENTSCREEN,ORDERRESULTSCREEN, GOVOICERECOGSCREEN} from '../action';
 import {combineReducers} from 'redux'
 import { act } from 'react-test-renderer';
 
@@ -31,6 +31,10 @@ const displayState = (state = displayInitState,action)=>{
             return Object.assign({},state,{
                 screen:"result",
             })
+        case GOVOICERECOGSCREEN:
+            return Object.assign({},state,{
+                screen:"voicerecog"
+            })
         default:
             return state;
     }
@@ -50,6 +54,10 @@ const orderDataState = (state = orderDataInitState,action)=>{
             return Object.assign({},state,{
                 order_number:action.order_number
 
+            })
+        case GOVOICERECOGSCREEN:
+            return Object.assign({},state,{
+                order_id:action.order_id
             })
         case GOINITSCREEN:
             return orderDataInitState

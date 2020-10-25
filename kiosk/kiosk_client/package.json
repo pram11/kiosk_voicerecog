@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
+    "android": "source ~/.bash_profile&&react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
@@ -11,12 +11,19 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "base-64": "^0.1.0",
+    "buffer": "^5.6.0",
+    "node-libs-react-native": "^1.2.0",
     "react": "16.9.0",
-    "react-native": "0.61.5",
+    "react-native": "^0.63.2",
+    "react-native-audio-record": "^0.2.2",
     "react-native-camera": "^3.26.0",
-    "react-native-windows": "^0.61.0-0",
+    "react-native-fs": "^2.16.6",
+    "react-native-vector-icons": "^7.1.0",
     "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "vm-browserify": "^1.1.2",
+    "ws": "^7.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",

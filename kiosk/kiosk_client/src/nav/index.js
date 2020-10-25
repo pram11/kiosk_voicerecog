@@ -22,7 +22,7 @@ class Nav extends Component{
         console.log(this.props.data)
         return( 
             <FlatList
-            style={{maxHeight:68,backgroundColor:"lightgray"}}
+            style={{height:68,backgroundColor:"white"}}
             data = {this.props.data}
             renderItem={({item,key,separators})=>(
                 <NavItem category_name = {item.name} onPress={()=>this.setPress(item.id)}/>
@@ -39,14 +39,7 @@ class NavItem extends Component{
             <TouchableOpacity 
             style={{height:56,padding:4,margin:4,
                 alignItems:"center",justifyContent:"center",
-                borderRadius:8,
-                shadowColor: "#000",
-                shadowOffset: {
-                    width: 0,
-                    height: 1,
-                },
-                shadowOpacity: 0.22,
-                shadowRadius: 2.22,
+                
                 elevation: 3,
                 shadowColor:"gray",
                 backgroundColor:"white",

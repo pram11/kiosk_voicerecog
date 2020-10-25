@@ -2,7 +2,7 @@ export const GOINITSCREEN = "GOINITSCREEN";
 export const GOMENUSCREEN = "GOMENUSCREEN";
 export const PAYMENTSCREEN = "PAYMENTSCREEN";
 export const ORDERRESULTSCREEN = "ORDERRESULTSCREEN";
-
+export const GOVOICERECOGSCREEN = "GOVOICERECOGSCREEN";
 export function goInitScreen(){
     return {
         type:GOINITSCREEN
@@ -36,5 +36,12 @@ export function orderResultScreen(ordernum){
     return{
         type:ORDERRESULTSCREEN,
         order_number:ordernum
+    }
+}
+
+export function goVoiceRecog(id){
+    return{
+        type:GOVOICERECOGSCREEN,
+        order_id:id
     }
 }

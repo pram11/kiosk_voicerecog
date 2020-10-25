@@ -6,7 +6,7 @@
  * @flow
  */
 
-import React, { Component } from 'react';
+ import React, { Component } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -19,7 +19,7 @@ import {
 import { RNCamera } from 'react-native-camera';
 import {createStore} from 'redux'
 import {connect,Provider} from 'react-redux'
-import {InitialScreen, MenuScreen, PaymentScreen, ResultScreen} from './src/screen'
+import {InitialScreen, MenuScreen, PaymentScreen, ResultScreen, VoiceRecogScreen} from './src/screen'
 import { Reducers } from './src/reducer';
 
 
@@ -38,6 +38,7 @@ class Screen extends Component{
     switch(this.props.screen){
       case "init":
         return (
+          
           <InitialScreen/>
         );
       case "menu":
@@ -54,7 +55,10 @@ class Screen extends Component{
       return(
         <ResultScreen/>
         )
-      
+      case "voicerecog":
+        return(
+          <VoiceRecogScreen/>
+        )
       default:
         return null
     }
@@ -64,6 +68,7 @@ class Screen extends Component{
 Screen = connect(ScreenMSTP,undefined)(Screen)
 class App extends Component{
   render(){
+    console.log("APP")
     return(
       <Provider store = {store}>
         <Screen/>
