@@ -7,6 +7,7 @@ import {MenuSelectedModal} from '../modal'
 import {MenuCard} from '../card'
 import AudioRecord from 'react-native-audio-record';
 import Icon from 'react-native-vector-icons/FontAwesome5'
+import style from '../style'
 const RNFS = require('react-native-fs');
 const Buffer = require('buffer/').Buffer;
 const recordoption = {
@@ -217,7 +218,72 @@ class VoiceRecogScreen extends Component {
 
 
   render() {
-    return (<View style={{flex: 1,flexDirection:"column"}} >
+    return (
+      <View style={{flex: 1, flexDirection: 'column'}}>
+        <Image
+          source={require('../../static/img/ad.png')}
+          style={{
+            width: '100%',
+            maxHeight: 80,
+            resizeMode: 'contain',
+            flexWrap: 'wrap',
+          }}
+        />
+        <MenuSelectedModal
+          show={this.state.showMenuSelectModal}
+          onPressClose={() => {
+            this.closeModal();
+          }}
+          data={this.state.modalItem}
+          addMenu={data => {
+            this.addMenu(data);
+          }}
+        />
+        <View style={{flex: 3, flexDirection: 'column'}}>
+          <View style={{flexDirection: 'row'}}>
+            <Nav
+              data={this.state.category_list}
+              getItemList={id => this.getItemList(id)}
+            />
+          </View>
+          <FlatList
+            style={[{flex: 1}, style.background]}
+            numColumns={3}
+            data={this.state.selectedCategory}
+            renderItem={({item, key, separators}) => (
+              <MenuCard
+                image={item.image}
+                name={item.name}
+                onPress={() => this.onPressMenuCard(item)}
+              />
+            )}
+          />
+        </View>
+        <View
+          style={[
+            {flex: 2, borderStyle: 'solid', borderTopWidth: 1, padding: 8},
+            style.background_cart,
+          ]}>
+          <Order data={this.state.orderList} />
+          <TouchableOpacity
+            style={[{padding: 8, alignItems: 'center'}, style.button]}
+            onPress={() => {
+                clearInterval(this.state.intervalcall);
+              this.props.goNext(this.state.orderList);
+            }}>
+            <Text style={[{fontSize: 30}, style.normalFont]}>결제</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  }
+}
+VoiceRecogScreen = connect(
+  VoiceRecogScreenMSTP,
+  VoiceRecogScreenMDTP,
+)(VoiceRecogScreen);
+/*
+<View style={{flex: 1,flexDirection:"column"}} >
               <MenuSelectedModal 
                 show = {this.state.showMenuSelectModal} 
                 onPressClose={()=>{this.closeModal()}}
@@ -225,7 +291,7 @@ class VoiceRecogScreen extends Component {
                 addMenu={(data)=>{this.addMenu(data)}}
               />
               <View style={{flex:1}}>
-                <Image source = {require('../../static/img/ad.jpg')} style={{width:'100%'}}/>
+                <Image source = {require('../../static/img/ad.png')} style={{width:'100%'}}/>
               </View>                    
               <View style={{flex:3,flexDirection:"column"}}>
                   <View style={{flexDirection:"row"}}>
@@ -268,17 +334,9 @@ class VoiceRecogScreen extends Component {
                     <Icon  name={this.state.recordingState==='stop'?"microphone-alt":"microphone-alt-slash"} size={40} color={'white'}/>
                   </TouchableOpacity>
               </View>
-      </View>);
-  }
-}
-VoiceRecogScreen = connect(
-  VoiceRecogScreenMSTP,
-  VoiceRecogScreenMDTP,
-)(VoiceRecogScreen);
+      </View>
 
-
-
-
+*/
 
 class MenuScreen extends Component{
   constructor(props){
@@ -354,7 +412,7 @@ class MenuScreen extends Component{
               addMenu={(data)=>{this.addMenu(data)}}
               />
               <View style={{flex:1}}>
-              <Image source = {require('../../static/img/ad.jpg')} style={{width:'100%',height:"100%"}}/>
+              <Image source = {require('../../static/img/ad.png')} style={{width:'100%',height:"100%"}}/>
               </View>                    
               <View style={{flex:3,flexDirection:"column"}}>
                   <View style={{flexDirection:"row"}}>
