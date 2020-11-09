@@ -30,7 +30,6 @@ class Nav extends Component{
         this.props.getItemList(item)
     }
     render(){
-        console.log(this.props.data)
         return( 
             <FlatList
             style={{flex:1,backgroundColor:"white"}}
@@ -62,7 +61,6 @@ class NavItem extends Component{
 }
 class Order extends Component{
     render(){
-        console.log("orderData:",this.props.data)
         let price_result = 0;
         this.props.data.forEach((item)=>{
             if (item.is_set){
@@ -92,7 +90,6 @@ class Order extends Component{
 }
 class OrderItem extends Component{
     render(){
-        console.log(this.props.data)
         return(
             <View style={{flexDirection:"row"}}>
                 <Text style={[{color:"white"},style.normalFont]}>{this.props.data.name} </Text>

@@ -63,7 +63,6 @@ const requestMicrophonePermission = async()=>{
   }
 }
 let VoiceRecogScreenMSTP = (state)=>{
-  console.log(state)
   return{
       order_id:state.orderdata.order_id
   }
@@ -103,6 +102,7 @@ class VoiceRecogScreen extends Component {
   endRecord(){
     AudioRecord.stop().then((audiofile)=>{
       this.sendAudio(audiofile)
+      console.log("audiofile:",audiofile)
       this.setState({recordingState:"stop"})
     })
   }
@@ -165,7 +165,6 @@ class VoiceRecogScreen extends Component {
   componentDidMount(){
     axios({url:"http://clarin.moe:8993/menu/category",method:"GET"})
     .then((response)=>{
-        console.log(response.data)
         this.setState({category_list:response.data})
         this.TimedOut()
     }).catch((err)=>{
@@ -177,7 +176,6 @@ class VoiceRecogScreen extends Component {
   TimedOut(){
       setTimeout(()=>{this.TimedOut()},1000);
       axios({url:"http://clarin.moe:8993/order/"+this.props.order_id+"/item"}).then((response)=>{
-          console.log(response.data);
           this.setState({orderList:response.data})
 
       }).catch((err)=>{console.log(err)})
@@ -208,9 +206,7 @@ class VoiceRecogScreen extends Component {
   getItemList(id){
       axios({url:"http://clarin.moe:8993/menu/category/"+id+'/menu'})
       .then((response)=>{
-          console.log(response.data);
           this.setState({selectedCategory:response.data});
-          console.log(this.state)
       }).catch((error)=>{
           console.log(error)
       })
@@ -265,14 +261,23 @@ class VoiceRecogScreen extends Component {
             style.background_cart,
           ]}>
           <Order data={this.state.orderList} />
-          <TouchableOpacity
-            style={[{padding: 8, alignItems: 'center'}, style.button]}
+          <View style={{flexDirection:"row"}}>
+            <TouchableOpacity
+            style={[{padding: 8, alignItems: 'center',flex:1}, style.button]}
             onPress={() => {
                 clearInterval(this.state.intervalcall);
               this.props.goNext(this.state.orderList);
             }}>
-            <Text style={[{fontSize: 30}, style.normalFont]}>결제</Text>
-          </TouchableOpacity>
+              <Text style={[{fontSize: 30}, style.normalFont]}>결제</Text>
+            </TouchableOpacity>              
+            <TouchableOpacity style={[{color:"blue",marginLeft:8,height:66,aspectRatio:1,alignItems:"center",justifyContent:"center"},style.button]}
+              onPress={this.state.recordingState==="stop"?()=>this.startRecord():()=>this.endRecord()}
+            >
+              <Icon name={this.state.recordingState==="stop"?"microphone":"microphone-slash"} size={30} />
+            </TouchableOpacity>
+
+          </View>
+          
         </View>
       </View>
     );

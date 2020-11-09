@@ -35,7 +35,6 @@ class MenuSelectedModal extends Component{
         })
     }
     render(){
-        console.log(this.props)
         if(this.props.show){
         return(
             <Modal  style={[{width:"100%",height:'100%',position:"absolute",flex:1,flexDirection:"column"}]} transparent={true}>
