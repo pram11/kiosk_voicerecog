@@ -58,8 +58,8 @@ class InitialScreen extends Component {
         console.log(response.data.id);
         this.props.goNext(response.data.id);
       })
-      .catch(error => {
-        window.alert('NETWORK ERROR:', error.response.status);
+      .catch((error) => {
+        window.alert("네트워크 에러가 발생했습니다. 네트워크를 다시 확인해주세요.");
       });
   }
   startVoiceRecogOrder() {
@@ -68,8 +68,8 @@ class InitialScreen extends Component {
         console.log(response.data.id);
         this.props.goVoiceRecog(response.data.id);
       })
-      .catch(error => {
-        window.alert(error.response.status);
+      .catch((error) => {
+        window.alert("네트워크 에러가 발생했습니다. 네트워크를 다시 확인해주세요.");
       });
   }
   render() {
